@@ -1,16 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 using TelegramBotDependencyInjection.Contracts;
-using TelegramBotDependencyInjection.UpdateControllers;
 using TelegramBotDependencyInjection;
 
 var services = new ServiceCollection();
 services.AddSingleton<ITelegramBotClient, TelegramBotClient>(x => new TelegramBotClient(
-        token: "TOKEN HERE"))
+        token: "7471801619:AAHwWzxfG5loXb5R3wb0vlxMhtUIczzGbf8"))
     .AddSingleton<BotService>()
-    .AddTransient<IBotController, BotCommandController>()
-    .AddTransient<IBotController, BotKeyboardController>()
-    .AddTransient<IBotController, BotToolsController>();
+    .AddAllImplementationsOf<IBotController>();
+
 
 var serviceProvider = services.BuildServiceProvider();
 var botService = serviceProvider.GetRequiredService<BotService>();
